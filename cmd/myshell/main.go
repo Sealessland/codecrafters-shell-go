@@ -19,7 +19,8 @@ func main() {
 			fmt.Fprintln(os.Stderr, "Error reading input:", err)
 			os.Exit(1)
 		}
-		if command == "exit" {
+		switch command {
+		case "exit 0":
 			os.Exit(0)
 		}
 

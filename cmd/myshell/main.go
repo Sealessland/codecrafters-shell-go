@@ -20,10 +20,12 @@ func main() {
 			os.Exit(1)
 		}
 		switch command {
-		case "exit 0":
+		case "exit 0\n":
+
 			os.Exit(0)
+		default:
+			fmt.Println("command not found")
 		}
 
-		fmt.Println(command[:len(command)-1] + ": command not found")
 	}
 }

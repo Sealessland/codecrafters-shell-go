@@ -27,6 +27,15 @@ func main() {
 		case strings.HasPrefix(command, "echo "):
 			// Print the rest of the command after "echo "
 			fmt.Println(command[5:])
+		case strings.HasPrefix(command, "type "):
+			switch command[5:] {
+			case "echo":
+				fmt.Println("echo is a shell builtin")
+			case "type":
+				fmt.Println("type is a shell builtin")
+			default:
+				fmt.Println(command + ": command not found")
+			}
 		default:
 			fmt.Println(command + ": command not found")
 		}

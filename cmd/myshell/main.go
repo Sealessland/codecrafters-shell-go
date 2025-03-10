@@ -66,7 +66,8 @@ func main() {
 					fmt.Printf("%s: not found\n", cmd)
 				}
 			}
-
+		case command == "pwd":
+			fmt.Println(os.Getwd())
 		default:
 			args := strings.Split(command, " ")
 			cmd := exec.Command(args[0], args[1:]...)

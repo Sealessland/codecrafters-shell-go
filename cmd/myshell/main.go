@@ -60,6 +60,7 @@ func main() {
 			case "exit":
 				fmt.Println("exit is a shell builtin")
 			case "pwd":
+
 				fmt.Println("pwd is a shell builtin")
 			default:
 				if path, found := findExecutable(cmd); found {
@@ -68,11 +69,25 @@ func main() {
 					fmt.Printf("%s: not found\n", cmd)
 				}
 			}
-		case command == "pwd":
-			fmt.Println(os.Getenv("PWD"))
 		case strings.HasPrefix(command, "cd "):
-			os.Chdir(command[5:])
+			dir := command[5:]
+			err := os.Chdir(dir)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "cd: %s: %s\n", dir, err)
+			} else {
+				// 更新 PWD 环境变量
+				currentDir, _ := os.Getwd()
+				os.Setenv("PWD", currentDir)
+			}
 
+		case command == "pwd":
+			// 获取实际的当前工作目录
+			currentDir, err := os.Getwd()
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "pwd: %s\n", err)
+			} else {
+				fmt.Println(currentDir)
+			}
 		default:
 			args := strings.Split(command, " ")
 			cmd := exec.Command(args[0], args[1:]...)

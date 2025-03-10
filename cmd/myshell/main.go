@@ -59,6 +59,8 @@ func main() {
 				fmt.Println("type is a shell builtin")
 			case "exit":
 				fmt.Println("exit is a shell builtin")
+			case "pwd":
+				fmt.Println("pwd is a shell builtin")
 			default:
 				if path, found := findExecutable(cmd); found {
 					fmt.Printf("%s is %s\n", cmd, path)
@@ -67,7 +69,8 @@ func main() {
 				}
 			}
 		case command == "pwd":
-			fmt.Println(os.Getwd())
+			dir, err := os.Getwd()
+			fmt.Printf("%s\n", dir)
 		default:
 			args := strings.Split(command, " ")
 			cmd := exec.Command(args[0], args[1:]...)

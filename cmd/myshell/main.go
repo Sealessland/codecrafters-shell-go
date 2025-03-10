@@ -19,8 +19,8 @@ func findExecutable(cmd string) (string, bool) {
 	}
 	return "", false
 }
-func main() {
 
+func main() {
 	for {
 		fmt.Fprint(os.Stdout, "$ ")
 
@@ -41,7 +41,8 @@ func main() {
 			// Print the rest of the command after "echo "
 			fmt.Println(command[5:])
 		case strings.HasPrefix(command, "type "):
-			switch command[5:] {
+			cmd := command[5:]
+			switch cmd {
 			case "echo":
 				fmt.Println("echo is a shell builtin")
 			case "type":
@@ -49,12 +50,11 @@ func main() {
 			case "exit":
 				fmt.Println("exit is a shell builtin")
 			default:
-				if _, found := findExecutable(command[5:]); found {
-					fmt.Println(command[5:], "is", command[5:])
+				if path, found := findExecutable(cmd); found {
+					fmt.Printf("%s is %s\n", cmd, path)
 				} else {
-					fmt.Println(command[5:], ": not found")
+					fmt.Printf("%s: not found\n", cmd)
 				}
-				fmt.Println(command[5:] + ": not found")
 			}
 		default:
 			fmt.Println(command + ": command not found")

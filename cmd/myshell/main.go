@@ -69,8 +69,7 @@ func main() {
 				}
 			}
 		case command == "pwd":
-			dir, err := os.Getwd()
-			fmt.Printf("%s\n", dir)
+			fmt.Println(os.Getenv("PWD"))
 		default:
 			args := strings.Split(command, " ")
 			cmd := exec.Command(args[0], args[1:]...)

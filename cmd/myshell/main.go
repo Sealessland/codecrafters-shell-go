@@ -70,6 +70,12 @@ func main() {
 			}
 		case command == "pwd":
 			fmt.Println(os.Getenv("PWD"))
+		case strings.HasPrefix(command, "cd "):
+			err := os.Chdir(command[5:])
+			if err != nil {
+				fmt.Println("cd: no such file or directory")
+			}
+
 		default:
 			args := strings.Split(command, " ")
 			cmd := exec.Command(args[0], args[1:]...)

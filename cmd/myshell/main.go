@@ -101,4 +101,5 @@ func main() {
 			}
 		}
 	}
+	fmt.Println("Goodbye!")
 }
